@@ -1,0 +1,20 @@
+.list-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.list-item button{
+    margin: 0 4px;
+}
+
+.list-item label {
+    display: flex;
+    align-items: center;
+}
+
+.todo-list {
+    padding-left: 0;
+ }
+
+

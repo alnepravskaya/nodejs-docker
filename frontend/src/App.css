@@ -1,0 +1,36 @@
+.app {
+  padding: 16px;
+}
+
+button, input {
+  box-sizing: border-box;
+  height: 32px;
+  margin: 0 4px;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #00b5ad;
+}
+
+button {
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid #00b5ad;
+  vertical-align: baseline;
+  background-color: #ffffff ;
+  color: #00b5ad;
+}
+
+button:hover {
+  color: #009c95;
+}
+
+button.btn-remove {
+  width: 32px;
+  border: 1px solid #e32525;
+  color: #e32525;
+}
+
+
+.category-line {
+  display: flex;
+}
