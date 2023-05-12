@@ -1,18 +1,20 @@
-import {SyntheticEvent, useState} from "react";
+import { SyntheticEvent, useState } from 'react';
 
-const CategoryForm = ({onSubmit}: {onSubmit: (value: string) => void}) => {
- const [value, setValue] = useState("");
+const CategoryForm = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
+  const [value, setValue] = useState('');
 
- const submitForm = (e: SyntheticEvent) => {
-     e.preventDefault();
-     onSubmit(value);
-     setValue("")
- }
+  const submitForm = (e: SyntheticEvent) => {
+    e.preventDefault();
+    onSubmit(value);
+    setValue('');
+  };
 
-  return <form onSubmit={submitForm}>
-      <input type="text" value={value} onChange={(e)=> setValue(e.target.value)}/>
+  return (
+    <form onSubmit={submitForm}>
+      <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
       <button type="submit">Add new category</button>
-  </form>
-}
+    </form>
+  );
+};
 
 export default CategoryForm;

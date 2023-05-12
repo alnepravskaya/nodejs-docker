@@ -2,7 +2,8 @@
   padding: 16px;
 }
 
-button, input {
+button,
+input {
   box-sizing: border-box;
   height: 32px;
   margin: 0 4px;
@@ -16,7 +17,7 @@ button {
   display: inline-block;
   border: 1px solid #00b5ad;
   vertical-align: baseline;
-  background-color: #ffffff ;
+  background-color: #ffffff;
   color: #00b5ad;
 }
 
@@ -29,7 +30,6 @@ button.btn-remove {
   border: 1px solid #e32525;
   color: #e32525;
 }
-
 
 .category-line {
   display: flex;
