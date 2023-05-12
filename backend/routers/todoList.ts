@@ -1,7 +1,5 @@
 
 import * as express from 'express';
-
-const express = require('express');
 const router = express.Router();
 const {dbCollection} = require("../util/database");
 const {jsonParser} = require("../server");

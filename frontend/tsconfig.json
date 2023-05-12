@@ -7,6 +7,7 @@
       "esnext",
       "ES2015"
     ],
+    "types": [ "node" ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-.list-item button{
+.list-item button {
     margin: 0 4px;
 }
 
@@ -15,6 +15,6 @@
 
 .todo-list {
     padding-left: 0;
- }
+}
 
 
