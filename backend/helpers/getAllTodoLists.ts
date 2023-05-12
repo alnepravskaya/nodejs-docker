@@ -1,6 +1,6 @@
-const {dbCollection} = require("../util/database");
+const {dbCollection} = require("../utils/database");
 
-exports.getAllTodoLists = async () => {
+export const getAllTodoLists = async () => {
     const response = await dbCollection("todolist").find().toArray();
     return response;
 }

@@ -1,12 +1,12 @@
+import express from 'express';
+import { jsonParser } from '../server';
+import { getAllTodoLists } from '../helpers/getAllTodoLists';
 
-import * as express from 'express';
+import {dbCollection} from "../utils/database";
+
 const router = express.Router();
-const {dbCollection} = require("../util/database");
-const {jsonParser} = require("../server");
-const {getAllTodoLists} = require("../helpers/getAllTodoLists");
 
-
-router.post('/todoList', jsonParser,async (req: express.Request, res: express.Response) => {
+router.post('/todoList', jsonParser, async (req: express.Request, res: express.Response) => {
     await dbCollection("todolist").insertOne({...req.body});
     const response = await getAllTodoLists();
     res.json(response);

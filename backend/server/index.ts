@@ -1,8 +1,8 @@
-const express = require('express')
-const app = express();
-const bodyParser = require('body-parser');
+import express from "express";
+import * as bodyParser from "body-parser";
 
-exports.jsonParser = bodyParser.json()
+const app = express();
+export const jsonParser = bodyParser.json()
 
 console.log('server is up!')
 

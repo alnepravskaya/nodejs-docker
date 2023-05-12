@@ -15,7 +15,7 @@ MongoClient.connect(MONGODB_URI)
     })
 
 
-exports.dbCollection = (...args) => {
+export const dbCollection = (...args) => {
     return db.collection(...args)
 };
 
