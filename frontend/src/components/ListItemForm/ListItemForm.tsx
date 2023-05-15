@@ -1,6 +1,6 @@
 import { SyntheticEvent, useState } from 'react';
 
-const Form = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
+const ListItemForm = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
   const [value, setValue] = useState('');
 
   const submitForm = (e: SyntheticEvent) => {
@@ -17,4 +17,4 @@ const Form = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
   );
 };
 
-export default Form;
+export default ListItemForm;

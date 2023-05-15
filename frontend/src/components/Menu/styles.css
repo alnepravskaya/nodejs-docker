@@ -1,0 +1,6 @@
+.categories .category {
+  display: inline-flex;
+  vertical-align: top;
+  align-items: center;
+  min-width: 100px;
+}

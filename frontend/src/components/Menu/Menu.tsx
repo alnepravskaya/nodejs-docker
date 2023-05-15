@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import './styles.css';
 
-const Categories = (props: {
+const Menu = (props: {
   options: { id: string; name: string }[];
   updateSelectedList: (id: string) => void;
   selectedListIndex: number;
@@ -25,4 +25,4 @@ const Categories = (props: {
   );
 };
 
-export default Categories;
+export default Menu;

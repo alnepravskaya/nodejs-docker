@@ -1,4 +1,4 @@
-export type ItemList = {
+export interface ItemList  {
   id: string;
   text: string;
   isDone: boolean;
@@ -6,8 +6,8 @@ export type ItemList = {
 
 export type List = ItemList[];
 
-export type Category = {
+export interface CategoryInfo {
   id: string;
   name: string;
-  list: List;
+  list: List
 };

@@ -1,58 +1,48 @@
-import { Category, List } from '../types/common';
-import { v4 as uuidv4 } from 'uuid';
+import { Category, CategoryInfo, ItemList } from '../types/common';
+import { apiRequest } from '../utils/apiRequest';
 
 export const todoService = {
-  getAllLists: async (): Promise<Category[]> => {
-    const data = await fetch(`http://localhost:8000/todoList`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+  getAllCategories: async (): Promise<Category[]> => {
+    return await apiRequest({
+      url: '/todoCategories',
+      method: 'GET'
     });
-    return await data.json();
   },
-  addNewList: async (value: string): Promise<Category[]> => {
-    const data = await fetch('http://localhost:8000/todoList', {
-      method: 'post',
-      body: JSON.stringify({ id: uuidv4(), name: value, list: [] }),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+  getCategoryInfo: async (categoryId: string): Promise<CategoryInfo> => {
+    return await apiRequest({
+      url: `/todoCategories/${categoryId}`,
+      method: 'GET'
     });
-    return await data.json();
   },
-  addNewItem: async (id: string, value: string): Promise<Category[]> => {
-    const data = await fetch('http://localhost:8000/addNewItem', {
-      method: 'post',
-      body: JSON.stringify({
+  addNewCategory: async (value: string): Promise<Category[]> => {
+    return await apiRequest({
+      url: '/todoCategories',
+      method: 'POST',
+      body: { name: value }
+    });
+  },
+  addNewItem: async (id: string, value: string): Promise<CategoryInfo> => {
+    return await apiRequest({
+      url: '/addNewItem',
+      method: 'POST',
+      body: {
         id,
-        list: [
-          {
-            id: uuidv4(),
-            text: value,
-            isDone: false
-          }
-        ]
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
+        value
       }
     });
-
-    return await data.json();
   },
-  updateItem: async (id: string, list: List): Promise<Category[]> => {
-    const data = await fetch('http://localhost:8000/updateItem', {
-      method: 'post',
-      body: JSON.stringify({ id, list }),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+  updateItem: async (item: ItemList, categoryId: string): Promise<CategoryInfo> => {
+    return await apiRequest({
+      url: '/updateItem',
+      method: 'POST',
+      body: { item, categoryId }
     });
-
-    return await data.json();
+  },
+  removeItem: async (id: string, categoryId: string): Promise<CategoryInfo> => {
+    return await apiRequest({
+      url: '/removeItem',
+      method: 'POST',
+      body: { id, categoryId }
+    });
   }
 };
