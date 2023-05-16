@@ -14,15 +14,9 @@ const ToDoItem = (props: {
   } = props;
   const [newValue, setNewValue] = useState(text);
   const [isChecked, setIsChecked] = useState(isDone);
-  const [isEdit, setIsEdit] = useState(false);
 
   const updateHandler = () => {
     onUpdateItem({ ...props.item, text: newValue });
-    setIsEdit(false);
-  };
-
-  const editItemSwitherHandler = () => {
-    setIsEdit(true);
   };
 
   const editItemStatusHandler = () => {
@@ -32,18 +26,14 @@ const ToDoItem = (props: {
 
   return (
     <li key={id} className="list-item">
-      <label>
-        <input type="checkbox" checked={isChecked} onChange={editItemStatusHandler} name={id} />
-        {!isEdit && <span className="label-text">{text}</span>}
-      </label>
-      {isEdit && (
-        <>
-          <input type="text" value={newValue} onChange={(e) => setNewValue(e.target.value)} />
-          <button onClick={updateHandler}>update</button>
-        </>
-      )}
+      <input type="checkbox" checked={isChecked} onChange={editItemStatusHandler} name={id} />
+      <input
+        type="text"
+        value={newValue}
+        onChange={(e) => setNewValue(e.target.value)}
+        onBlur={updateHandler}
+      />
 
-      {!isEdit && <button onClick={editItemSwitherHandler}>edit</button>}
       <button className="btn-remove" onClick={onRemoveItem.bind(null, id)}>
         X
       </button>

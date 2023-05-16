@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import ListItemForm from './components/ListItemForm/ListItemForm';
+import AddtemField from './components/AddItemField/AddtemField';
 import CategoryForm from './components/CategoryForm/CategoryForm';
 import ToDoList from './components/ToDoList/ToDoList';
 import { Category, CategoryInfo, ItemList } from './types/common';
@@ -28,9 +28,13 @@ function App() {
     void getPageInfo();
   }, []);
 
-  const updateSelectedList = (id: string) => {
+  const updateSelectedList = async (id: string) => {
     const newSelectedListIndex = allCategories.findIndex((category) => category.id === id);
     setSelectedListIndex(newSelectedListIndex !== -1 ? newSelectedListIndex : 0);
+    const categoryInfoResponse = await todoService.getCategoryInfo(
+      allCategories[newSelectedListIndex].id
+    );
+    setSelectedCategoryInfo(categoryInfoResponse);
   };
 
   const addNewCategory = async (value: string) => {
@@ -78,7 +82,7 @@ function App() {
           onRemoveItem={removeItemHandler}
         />
       )}
-      <ListItemForm onSubmit={addNewItemHandler} />
+      <AddtemField onSubmit={addNewItemHandler} />
     </div>
   );
 }
