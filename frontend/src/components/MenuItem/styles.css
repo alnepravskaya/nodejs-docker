@@ -1,0 +1,16 @@
+.categories .category {
+  display: inline-flex;
+  vertical-align: top;
+  align-items: center;
+  min-width: 100px;
+}
+
+.categories .category input {
+  background: transparent;
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.categories .category.selected {
+  background: #1876d2;
+}

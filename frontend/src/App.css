@@ -1,5 +1,5 @@
 .app {
-  padding: 16px;
+  padding: 0;
 }
 
 button,
@@ -38,6 +38,11 @@ button.btn-remove {
   width: 32px;
   border: none;
   color: #e32525;
+  background: transparent;
+}
+
+button.btn-remove:hover {
+  opacity: 0.7;
 }
 
 .category-line {

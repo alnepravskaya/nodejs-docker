@@ -21,6 +21,19 @@ export const todoService = {
       body: { name: value }
     });
   },
+  removeCategory: async (id: string): Promise<Category[]> => {
+    return await apiRequest({
+      url: '/todoCategories/' + id,
+      method: 'DELETE'
+    });
+  },
+  updateCategory: async ({ name, id }: { name: string; id: string }): Promise<Category[]> => {
+    return await apiRequest({
+      url: '/todoCategories/update',
+      method: 'POST',
+      body: { name, id }
+    });
+  },
   addNewItem: async (id: string, value: string): Promise<CategoryInfo> => {
     return await apiRequest({
       url: '/addNewItem',

@@ -11,7 +11,7 @@ function App() {
   const [selectedCategoryInfo, setSelectedCategoryInfo] = useState<CategoryInfo | null>(null);
   const [allCategories, setAllCategories] = useState<Category[]>([]);
 
-  const [selectedListIndex, setSelectedListIndex] = useState(0);
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 
   const getPageInfo = async () => {
     const categoriesResponse = await todoService.getAllCategories();
@@ -30,11 +30,16 @@ function App() {
 
   const updateSelectedList = async (id: string) => {
     const newSelectedListIndex = allCategories.findIndex((category) => category.id === id);
-    setSelectedListIndex(newSelectedListIndex !== -1 ? newSelectedListIndex : 0);
+    setSelectedCategoryIndex(newSelectedListIndex !== -1 ? newSelectedListIndex : 0);
     const categoryInfoResponse = await todoService.getCategoryInfo(
       allCategories[newSelectedListIndex].id
     );
     setSelectedCategoryInfo(categoryInfoResponse);
+  };
+
+  const updateCategoryHandler = async ({ name, id }: { name: string; id: string }) => {
+    const response = await todoService.updateCategory({ name, id });
+    setAllCategories(response);
   };
 
   const addNewCategory = async (value: string) => {
@@ -42,9 +47,18 @@ function App() {
     setAllCategories(response);
   };
 
+  const removeCategoryHandler = async (id: string) => {
+    const indexRemovedCategory = allCategories.findIndex((category) => category.id === id);
+    if (selectedCategoryIndex === indexRemovedCategory) {
+      setSelectedCategoryIndex(0);
+    }
+    const response = await todoService.removeCategory(id);
+    setAllCategories(response);
+  };
+
   const addNewItemHandler = async (value: string) => {
     if (selectedCategoryInfo?.id) {
-      const response = await todoService.addNewItem(selectedCategoryInfo?.id, value);
+      const response = await todoService.addNewItem(selectedCategoryInfo.id, value);
       setSelectedCategoryInfo(response);
     }
   };
@@ -70,7 +84,9 @@ function App() {
           <Menu
             options={allCategories}
             updateSelectedList={updateSelectedList}
-            selectedListIndex={selectedListIndex}
+            selectedCategoryIndex={selectedCategoryIndex}
+            onUpdateCategory={updateCategoryHandler}
+            onRemoveCategory={removeCategoryHandler}
           />
         )}
         <CategoryForm onSubmit={addNewCategory} />

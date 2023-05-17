@@ -1,25 +1,37 @@
 import { ChangeEvent, useState } from 'react';
 import './styles.css';
+import MenuItem from '../MenuItem/MenuItem';
 
 const Menu = (props: {
   options: { id: string; name: string }[];
   updateSelectedList: (id: string) => void;
-  selectedListIndex: number;
+  onUpdateCategory: ({ name, id }: { name: string; id: string }) => void;
+  selectedCategoryIndex: number;
+  onRemoveCategory: (id: string) => void;
 }) => {
-  const [value, setValue] = useState(props.options[props.selectedListIndex]?.id);
+  const { options, onUpdateCategory, onRemoveCategory, selectedCategoryIndex } = props;
+  //debugger;
 
-  const todoListHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.name);
-    props.updateSelectedList(e.target.name);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(options[selectedCategoryIndex].id);
+  console.log(options[selectedCategoryIndex].id);
+  console.log(selectedCategoryId);
+  const updateSelectedCategoryHandler = (id: string) => {
+    setSelectedCategoryId(id);
+    props.updateSelectedList(id);
   };
 
   return (
     <div className="categories">
-      {props.options?.map(({ name, id }) => (
-        <div key={id} className="category">
-          <input type="radio" id={id} name={id} checked={value === id} onChange={todoListHandler} />
-          <label htmlFor={id}>{name}</label>
-        </div>
+      {options?.map(({ name, id }) => (
+        <MenuItem
+          key={id}
+          id={id}
+          name={name}
+          selectedCategoryId={selectedCategoryId}
+          onUpdateCategory={onUpdateCategory}
+          onUpdateSelectedCategory={updateSelectedCategoryHandler}
+          onRemoveCategory={onRemoveCategory}
+        />
       ))}
     </div>
   );

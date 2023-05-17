@@ -15,6 +15,19 @@ router.post('/todoCategories', jsonParser, async (req: express.Request, res: exp
     res.json(response);
 })
 
+router.post('/todoCategories/update', jsonParser, async (req: express.Request, res: express.Response) => {
+    await dbCollection("todoCategories").updateOne({id: req.body.id}, [{$set: {"name": req.body.name}}]);
+    const response = await getAllTodoCategories();
+    res.json(response);
+})
+
+router.delete('/todoCategories/:categoryId', jsonParser, async (req: express.Request, res: express.Response) => {
+    await dbCollection("todoCategories").deleteOne({id: req.params.categoryId});
+    const response = await getAllTodoCategories();
+    res.json(response);
+})
+
+
 router.get('/todoCategories/:categoryId', async (req: express.Request, res: express.Response)  => {
     const response = await getCategory(req.params.categoryId);
     res.json(response);
