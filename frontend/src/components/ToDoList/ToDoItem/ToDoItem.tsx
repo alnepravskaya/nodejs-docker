@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ItemList } from '../../types/common';
+import { ItemList } from '../../../types/common';
 import './styles.css';
 
 const ToDoItem = (props: {

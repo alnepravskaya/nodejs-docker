@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import AddItemField from '../components/AddItemField/AddItemField';
-import Menu from '../components/Menu/Menu';
-import ToDoList from '../components/ToDoList/ToDoList';
-import { todoService } from '../services/todoService';
-import { Category, CategoryInfo, ItemList } from '../types/common';
+import AddItemField from '../../components/ToDoList/AddItemField/AddItemField';
+import Menu from '../../components/Menu/Menu';
+import ToDoList from '../../components/ToDoList/ToDoList';
+import { todoService } from '../../services/todoService';
+import { Category, CategoryInfo, ItemList } from '../../types/common';
 
 const CategoryPage = () => {
   const { categories, categoryInfo, selectedMenuIndex } = useLoaderData() as {
@@ -17,7 +17,7 @@ const CategoryPage = () => {
 
   useEffect(() => {
     setSelectedCategoryInfo(categoryInfo);
-  }, [categories]);
+  }, [categoryInfo]);
 
   const addNewItemHandler = async (value: string) => {
     if (selectedCategoryInfo?.id) {

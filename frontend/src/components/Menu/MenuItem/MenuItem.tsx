@@ -5,19 +5,10 @@ import './styles.css';
 const MenuItem = (props: {
   id: string;
   name: string;
-  selectedCategoryId: string;
   onUpdateCategory: ({ name, id }: { name: string; id: string }) => void;
-  onUpdateSelectedCategory: (id: string) => void;
   onRemoveCategory: (id: string) => void;
 }) => {
-  const {
-    id,
-    name,
-    selectedCategoryId,
-    onUpdateCategory,
-    onUpdateSelectedCategory,
-    onRemoveCategory
-  } = props;
+  const { id, name, onUpdateCategory, onRemoveCategory } = props;
   const [textValue, setTextValue] = useState(name);
 
   const changeCategoryNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,26 +19,23 @@ const MenuItem = (props: {
     onUpdateCategory({ id, name: textValue });
   };
 
-  const updateSelectedCategoryHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    debugger;
-    onUpdateSelectedCategory(e.target.name);
-  };
-
   return (
-    <NavLink
-      to={`/categories/${id}`}
-      className={({ isActive }) => (isActive ? 'category selected' : 'category')}
-    >
-      <input
-        type="text"
-        value={textValue}
-        onChange={changeCategoryNameHandler}
-        onBlur={updateCategoryNameHandler}
-      />
+    <>
+      <NavLink
+        to={`/categories/${id}`}
+        className={({ isActive }) => (isActive ? 'category selected' : 'category')}
+      >
+        <input
+          type="text"
+          value={textValue}
+          onChange={changeCategoryNameHandler}
+          onBlur={updateCategoryNameHandler}
+        />
+      </NavLink>
       <button className="btn-remove" onClick={onRemoveCategory.bind(null, id)}>
         X
       </button>
-    </NavLink>
+    </>
   );
 };
 

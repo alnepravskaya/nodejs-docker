@@ -1,6 +1,6 @@
 import { ItemList, List } from '../../types/common';
+import ToDoItem from './ToDoItem/ToDoItem';
 import './styles.css';
-import ToDoItem from '../ToDoItem/ToDoItem';
 
 const ToDoList = ({
   list,

@@ -7,11 +7,21 @@
 }
 
 .categories .category input {
+  margin: 0;
   background: transparent;
   color: #ffffff;
   border-color: transparent;
 }
 
 .categories .category.selected {
+  background: #175088;
+}
+
+.categories button.btn-remove {
+  margin: 0;
+  border-radius: 0;
+}
+
+.categories .category.selected + button.btn-remove {
   background: #175088;
 }

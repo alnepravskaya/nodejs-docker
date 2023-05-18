@@ -1,40 +1,21 @@
 import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import CategoryPage from './pages/category/CategoryPage';
+import HomePage from './pages/home/HomePage';
+import {categoryPageLoader} from "./pages/category/loader";
 import './App.css';
-import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom';
-import CategoryPage from './pages/CategoryPage';
-import { todoService } from './services/todoService';
-import HomePage from './pages/HomePage';
+import { homePageLoader } from './pages/home/loader';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
-    loader: async ({ params }) => {
-      const categories = await todoService.getAllCategories();
-
-      return {
-        categories
-      };
-    }
+    loader: homePageLoader
   },
   {
     path: 'categories/:categoryId',
     element: <CategoryPage />,
-    loader: async ({ params }) => {
-      const categories = await todoService.getAllCategories();
-      const categoryId = params.categoryId;
-      let categoryInfo = null;
-      if (categoryId) {
-        categoryInfo = await todoService.getCategoryInfo(categoryId);
-      }
-      const selectedMenuIndex = categories.findIndex((category) => category.id === categoryId);
-
-      return {
-        categories,
-        categoryInfo,
-        selectedMenuIndex
-      };
-    }
+    loader: categoryPageLoader
   }
 ]);
 

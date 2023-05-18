@@ -1,25 +1,25 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
-import MenuItem from '../MenuItem/MenuItem';
+import MenuItem from './MenuItem/MenuItem';
+import AddCategory from '../AddCategory/AddCategory';
 import { todoService } from '../../services/todoService';
 import { Category } from '../../types/common';
-import CategoryForm from '../CategoryForm/CategoryForm';
+import { useNavigate } from 'react-router-dom';
 
 const Menu = (props: {
   categoriesList: { id: string; name: string }[];
   selectedMenuIndex?: number;
 }) => {
+  const navigate = useNavigate();
+
   const { categoriesList, selectedMenuIndex } = props;
 
   const [allCategories, setAllCategories] = useState<Category[]>(categoriesList);
-
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(selectedMenuIndex || 0);
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState(categoriesList[0].id);
-
-  const updateSelectedCategoryHandler = (id: string) => {
-    setSelectedCategoryId(id);
-  };
+  useEffect(() => {
+    setSelectedCategoryIndex(selectedMenuIndex || 0);
+  }, [selectedMenuIndex]);
 
   const updateCategoryHandler = async ({ name, id }: { name: string; id: string }) => {
     const response = await todoService.updateCategory({ name, id });
@@ -27,12 +27,14 @@ const Menu = (props: {
   };
 
   const removeCategoryHandler = async (id: string) => {
-    const indexRemovedCategory = allCategories.findIndex((category) => category.id === id);
-    if (selectedCategoryIndex === indexRemovedCategory) {
-      setSelectedCategoryIndex(0);
-    }
     const response = await todoService.removeCategory(id);
     setAllCategories(response);
+
+    const indexRemovedCategory = allCategories.findIndex((category) => category.id === id);
+
+    if (selectedCategoryIndex === indexRemovedCategory) {
+      navigate(`/categories/${allCategories[0].id}`);
+    }
   };
 
   const addNewCategory = async (value: string) => {
@@ -48,14 +50,12 @@ const Menu = (props: {
             key={id}
             id={id}
             name={name}
-            selectedCategoryId={selectedCategoryId}
             onUpdateCategory={updateCategoryHandler}
-            onUpdateSelectedCategory={updateSelectedCategoryHandler}
             onRemoveCategory={removeCategoryHandler}
           />
         ))}
       </nav>
-      <CategoryForm onSubmit={addNewCategory} />
+      <AddCategory onSubmit={addNewCategory} />
     </div>
   );
 };
