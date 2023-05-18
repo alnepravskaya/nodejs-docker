@@ -3,6 +3,7 @@
   vertical-align: top;
   align-items: center;
   min-width: 100px;
+  text-decoration: none;
 }
 
 .categories .category input {
@@ -12,5 +13,5 @@
 }
 
 .categories .category.selected {
-  background: #1876d2;
+  background: #175088;
 }

@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './styles.css';
 
 const MenuItem = (props: {
@@ -28,20 +29,15 @@ const MenuItem = (props: {
   };
 
   const updateSelectedCategoryHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    debugger;
     onUpdateSelectedCategory(e.target.name);
   };
 
-  console.log(selectedCategoryId, id, selectedCategoryId === id);
   return (
-    <div className={`category ${selectedCategoryId === id ? 'selected' : ''}`}>
-      <input
-        type="radio"
-        id={id}
-        name={id}
-        checked={selectedCategoryId === id}
-        onChange={updateSelectedCategoryHandler}
-      />
-
+    <NavLink
+      to={`/categories/${id}`}
+      className={({ isActive }) => (isActive ? 'category selected' : 'category')}
+    >
       <input
         type="text"
         value={textValue}
@@ -51,7 +47,7 @@ const MenuItem = (props: {
       <button className="btn-remove" onClick={onRemoveCategory.bind(null, id)}>
         X
       </button>
-    </div>
+    </NavLink>
   );
 };
 
