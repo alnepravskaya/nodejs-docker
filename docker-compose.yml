@@ -9,7 +9,7 @@ services:
     volumes:
       - ./backend:/server
 
-    command: [sh, -c, "cd server && npm install && npx ts-node-dev --respawn ./server/index.ts"]
+    command: [sh, -c, "cd server && npm run start:docker"]
     links:
       - mongo
 

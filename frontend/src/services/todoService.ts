@@ -54,7 +54,7 @@ export const todoService = {
   removeItem: async (id: string, categoryId: string): Promise<CategoryInfo> => {
     return await apiRequest({
       url: '/removeItem',
-      method: 'POST',
+      method: 'DELETE',
       body: { id, categoryId }
     });
   }

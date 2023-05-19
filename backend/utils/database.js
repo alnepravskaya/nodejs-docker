@@ -1,21 +1,18 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient } = require('mongodb');
 
-const MONGODB_URI = "mongodb://mongo";
+const MONGODB_URI = 'mongodb://mongo';
 
-let db
-
+let db;
 
 MongoClient.connect(MONGODB_URI)
-    .then(client => {
-        db = client.db();
-    })
-    .catch(err=> {
-        console.log(err);
-        throw err;
-    })
-
+  .then((client) => {
+    db = client.db();
+  })
+  .catch((err) => {
+    console.log(err);
+    throw err;
+  });
 
 export const dbCollection = (...args) => {
-    return db.collection(...args)
+  return db.collection(...args);
 };
-

@@ -1,16 +1,16 @@
-import express from "express";
-import * as bodyParser from "body-parser";
+import express from 'express';
+import * as bodyParser from 'body-parser';
 
 const app = express();
-export const jsonParser = bodyParser.json()
 
-console.log('server is up!')
+console.log('server is up!');
 
 const todoListRoutes = require('../routers/todoCategories');
 const todoItemsRoutes = require('../routers/todoItems');
+
+app.use(bodyParser.json());
 
 app.use(todoListRoutes);
 app.use(todoItemsRoutes);
 
 app.listen(8000);
-
