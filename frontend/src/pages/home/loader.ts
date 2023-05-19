@@ -1,9 +1,9 @@
-import {todoService} from "../../services/todoService";
+import { todoService } from '../../services/todoService';
 
-export const homePageLoader =async () => {
-    const categories = await todoService.getAllCategories();
+export const homePageLoader = async () => {
+  const categories = await todoService.getAllCategories();
 
-    return {
-        categories
-    };
-}
+  return {
+    categories
+  };
+};

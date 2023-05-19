@@ -23,7 +23,7 @@ const MenuItem = (props: {
     <>
       <NavLink
         to={`/categories/${id}`}
-        className={({ isActive }) => (isActive ? 'category selected' : 'category')}
+        className={({ isActive }) => `category ${isActive ? 'selected' : ''}`}
       >
         <input
           type="text"

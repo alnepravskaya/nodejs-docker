@@ -1,3 +1,7 @@
+.category-line {
+  display: flex;
+}
+
 .categories {
   background: #1876d2;
 }
