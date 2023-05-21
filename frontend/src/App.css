@@ -34,6 +34,12 @@ button:hover {
   background-color: rgba(25, 118, 210, 0.04);
 }
 
+button:disabled {
+  border-color: #406f9a;
+  color: #406f9a;
+  cursor: not-allowed;
+}
+
 button.btn-remove {
   width: 32px;
   border: none;

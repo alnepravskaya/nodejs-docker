@@ -12,7 +12,9 @@ const AddItemField = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
   return (
     <div className="addItemField">
       <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-      <button onClick={addNewItemHandler}>Add</button>
+      <button onClick={addNewItemHandler} disabled={value === ''}>
+        Add
+      </button>
     </div>
   );
 };

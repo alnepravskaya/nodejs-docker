@@ -30,6 +30,9 @@ const Menu = (props: {
     const response = await todoService.removeCategory(id);
     setAllCategories(response);
 
+    if (response.length === 0) {
+      return navigate('/');
+    }
     const indexRemovedCategory = allCategories.findIndex((category) => category.id === id);
 
     if (selectedCategoryIndex === indexRemovedCategory) {
@@ -40,6 +43,7 @@ const Menu = (props: {
   const addNewCategory = async (value: string) => {
     const response = await todoService.addNewCategory(value);
     setAllCategories(response);
+    navigate(`/categories/${response[response.length - 1].id}`);
   };
 
   return (

@@ -11,7 +11,7 @@ const AddCategory = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
   return (
     <div>
       <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-      <button type="submit" onClick={submitForm}>
+      <button type="submit" onClick={submitForm} disabled={value === ''}>
         Add new category
       </button>
     </div>
