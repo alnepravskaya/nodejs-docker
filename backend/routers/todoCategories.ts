@@ -4,7 +4,7 @@ import { getAllTodoCategories, getCategory } from '../helpers/getCategories';
 import { dbCollection } from '../utils/database';
 import { TODO_CATEGORIES } from '../contants/constants';
 
-const router = express.Router();
+export const router = express.Router();
 
 router.post('/todoCategories', async (req: express.Request, res: express.Response) => {
   const newCategoryId = uuidv4();
@@ -43,5 +43,3 @@ router.get('/todoCategories', async (req: express.Request, res: express.Response
   const response = await getAllTodoCategories();
   res.json(response);
 });
-
-module.exports = router;

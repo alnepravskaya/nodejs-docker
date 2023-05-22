@@ -5,8 +5,8 @@ const app = express();
 
 console.log('server is up!');
 
-const todoListRoutes = require('../routers/todoCategories');
-const todoItemsRoutes = require('../routers/todoItems');
+import { router as todoListRoutes } from '../routers/todoCategories';
+import { router as todoItemsRoutes } from '../routers/todoItems';
 
 app.use(bodyParser.json());
 

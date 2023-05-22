@@ -3,59 +3,27 @@ import { apiRequest } from '../utils/apiRequest';
 
 export const todoService = {
   getAllCategories: async (): Promise<Category[]> => {
-    return await apiRequest({
-      url: '/todoCategories',
-      method: 'GET'
-    });
+    return await apiRequest.get('/todoCategories');
   },
   getCategoryInfo: async (categoryId: string): Promise<CategoryInfo> => {
-    return await apiRequest({
-      url: `/todoCategories/${categoryId}`,
-      method: 'GET'
-    });
+    return await apiRequest.get(`/todoCategories/${categoryId}`);
   },
   addNewCategory: async (value: string): Promise<Category[]> => {
-    return await apiRequest({
-      url: '/todoCategories',
-      method: 'POST',
-      body: { name: value }
-    });
+    return await apiRequest.post('/todoCategories', { name: value });
   },
   removeCategory: async (id: string): Promise<Category[]> => {
-    return await apiRequest({
-      url: '/todoCategories/' + id,
-      method: 'DELETE'
-    });
+    return await apiRequest.delete('/todoCategories/' + id);
   },
   updateCategory: async ({ name, id }: { name: string; id: string }): Promise<Category[]> => {
-    return await apiRequest({
-      url: '/todoCategories/update',
-      method: 'POST',
-      body: { name, id }
-    });
+    return await apiRequest.post('/todoCategories/update', { name, id });
   },
   addNewItem: async (id: string, value: string): Promise<CategoryInfo> => {
-    return await apiRequest({
-      url: '/addNewItem',
-      method: 'POST',
-      body: {
-        id,
-        value
-      }
-    });
+    return await apiRequest.post('/addNewItem', { id, value });
   },
   updateItem: async (item: ItemList, categoryId: string): Promise<CategoryInfo> => {
-    return await apiRequest({
-      url: '/updateItem',
-      method: 'POST',
-      body: { item, categoryId }
-    });
+    return await apiRequest.post('/updateItem', { item, categoryId });
   },
   removeItem: async (id: string, categoryId: string): Promise<CategoryInfo> => {
-    return await apiRequest({
-      url: '/removeItem',
-      method: 'DELETE',
-      body: { id, categoryId }
-    });
+    return await apiRequest.delete('/removeItem', { id, categoryId });
   }
 };
