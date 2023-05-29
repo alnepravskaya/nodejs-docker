@@ -1,4 +1,4 @@
-import { Category, CategoryInfo, ItemList } from '../types/common';
+import { Category, CategoryInfo, ItemList, List } from '../types/common';
 import { apiRequest } from '../utils/apiRequest';
 
 export const todoService = {
@@ -17,13 +17,13 @@ export const todoService = {
   updateCategory: async ({ name, id }: { name: string; id: string }): Promise<Category[]> => {
     return await apiRequest.post('/todoCategories/update', { name, id });
   },
-  addNewItem: async (id: string, value: string): Promise<CategoryInfo> => {
-    return await apiRequest.post('/addNewItem', { id, value });
+  addNewItem: async (categoryId: string, updatedList: List): Promise<CategoryInfo> => {
+    return await apiRequest.post('/addNewItem', { categoryId, updatedList });
   },
-  updateItem: async (item: ItemList, categoryId: string): Promise<CategoryInfo> => {
-    return await apiRequest.post('/updateItem', { item, categoryId });
+  updateItem: async (categoryId: string, updatedList: List): Promise<CategoryInfo> => {
+    return await apiRequest.post('/updateItem', { categoryId, updatedList });
   },
-  removeItem: async (id: string, categoryId: string): Promise<CategoryInfo> => {
-    return await apiRequest.delete('/removeItem', { id, categoryId });
+  removeItem: async (categoryId: string, updatedList: List): Promise<CategoryInfo> => {
+    return await apiRequest.delete('/removeItem', { categoryId, updatedList });
   }
 };

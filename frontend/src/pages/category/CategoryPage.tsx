@@ -1,59 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import AddItemField from '../../components/ToDoList/AddItemField/AddItemField';
 import Menu from '../../components/Menu/Menu';
 import ToDoList from '../../components/ToDoList/ToDoList';
-import { todoService } from '../../services/todoService';
-import { Category, CategoryInfo, ItemList } from '../../types/common';
+import ToDoHeader from '../../components/ToDoList/ToDoHeader/ToDoHeader';
+import { LoaderCategoryPage } from './types';
+import useCategoryMenu from '../../hooks/useCategoryMenu';
+import styles from './categoryPage.module.css';
 
 const CategoryPage = () => {
-  const { categories, categoryInfo, selectedMenuIndex } = useLoaderData() as {
-    categories: Category[];
-    categoryInfo: CategoryInfo | null;
-    selectedMenuIndex: number;
-  };
+  const { categories, categoryInfo, selectedMenuIndex } = useLoaderData() as LoaderCategoryPage;
 
-  const [selectedCategoryInfo, setSelectedCategoryInfo] = useState<CategoryInfo | null>(null);
-
-  useEffect(() => {
-    setSelectedCategoryInfo(categoryInfo);
-  }, [categoryInfo]);
-
-  const addNewItemHandler = async (value: string) => {
-    if (selectedCategoryInfo?.id) {
-      const response = await todoService.addNewItem(selectedCategoryInfo.id, value);
-      setSelectedCategoryInfo(response);
-    }
-  };
-
-  const updateItemHandler = async (item: ItemList) => {
-    if (selectedCategoryInfo?.id) {
-      const response = await todoService.updateItem(item, selectedCategoryInfo.id);
-      setSelectedCategoryInfo(response);
-    }
-  };
-
-  const removeItemHandler = async (id: string) => {
-    if (selectedCategoryInfo?.id) {
-      const response = await todoService.removeItem(id, selectedCategoryInfo.id);
-      setSelectedCategoryInfo(response);
-    }
-  };
+  const { allCategories, removeCategoryHandler, updateCategoryHandler, addNewCategory } =
+    useCategoryMenu(categories, selectedMenuIndex);
 
   return (
-    <>
-      <Menu categoriesList={categories} selectedMenuIndex={selectedMenuIndex} />
-
-      {selectedCategoryInfo?.list && (
-        <ToDoList
-          list={selectedCategoryInfo.list}
-          onUpdateItem={updateItemHandler}
-          onRemoveItem={removeItemHandler}
-          key={categoryInfo?.id}
-        />
-      )}
-      <AddItemField onSubmit={addNewItemHandler} />
-    </>
+    <div className={styles.categoryPage}>
+      <Menu
+        categoriesList={categories}
+        allCategories={allCategories}
+        onRemoveCategory={removeCategoryHandler}
+        onAddNewCategory={addNewCategory}
+      />
+      <div className={styles.container}>
+        {!!categoryInfo?.id && (
+          <ToDoHeader category={categoryInfo} onUpdateCategory={updateCategoryHandler} />
+        )}
+        {categoryInfo?.list && <ToDoList />}
+      </div>
+    </div>
   );
 };
 

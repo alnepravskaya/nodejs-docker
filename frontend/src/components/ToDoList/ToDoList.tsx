@@ -1,27 +1,58 @@
-import { ItemList, List } from '../../types/common';
+import { ItemList, ItemListLevel, List } from '../../types/common';
 import ToDoItem from './ToDoItem/ToDoItem';
-import './styles.css';
+import styles from './todolist.module.css';
+import useTodoList from '../../hooks/useTodoList';
+import { useLoaderData } from 'react-router-dom';
+import { LoaderCategoryPage } from '../../pages/category/types';
+import ToDoHeader from './ToDoHeader/ToDoHeader';
+import React from 'react';
+import useCategoryMenu from '../../hooks/useCategoryMenu';
 
-const ToDoList = ({
-  list,
-  onUpdateItem,
-  onRemoveItem
-}: {
-  list: List;
-  onUpdateItem: (item: ItemList) => void;
-  onRemoveItem: (id: string) => void;
-}) => {
+const ToDoList = () => {
+  const { categoryInfo } = useLoaderData() as LoaderCategoryPage;
+
+  const {
+    selectedCategoryInfo,
+    currentIndexFocus,
+    addNewItemHandler,
+    updateItemHandler,
+    removeItemHandler
+  } = useTodoList(categoryInfo);
+
+  const listLength = selectedCategoryInfo?.list.length;
+
   return (
-    <ul className="todo-list">
-      {list?.map((item) => (
+    <>
+      <ul className={styles['todo-list']}>
+        {selectedCategoryInfo?.list?.map((item, index) => (
+          <ToDoItem
+            currentIndexFocus={currentIndexFocus}
+            index={index}
+            item={item}
+            key={item.id}
+            onUpdateItem={updateItemHandler}
+            onRemoveItem={removeItemHandler}
+            onAddItem={addNewItemHandler}
+          />
+        ))}
+
         <ToDoItem
-          item={item}
-          key={item.id}
-          onUpdateItem={onUpdateItem}
-          onRemoveItem={onRemoveItem}
+          currentIndexFocus={currentIndexFocus}
+          index={listLength || 0}
+          key="new-item"
+          item={{
+            text: '',
+            isDone: false,
+            level: ItemListLevel['level-0'],
+            id: ''
+          }}
+          isLastItem={true}
+          onUpdateItem={updateItemHandler}
+          onRemoveItem={() => {}}
+          onAddItem={addNewItemHandler}
         />
-      ))}
-    </ul>
+      </ul>
+    </>
   );
 };
 

@@ -1,0 +1,7 @@
+.toDoHeader input {
+  width: 100%;
+  margin: 16px 0;
+  font-size: 28px;
+  font-weight: 600;
+  text-transform: capitalize;
+}

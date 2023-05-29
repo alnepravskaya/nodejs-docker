@@ -1,0 +1,20 @@
+.addCategory input {
+  margin-left: 16px;
+  background: transparent;
+  color: #ffffff;
+  border-bottom: 2px solid #9ea7b0;
+}
+
+.addCategory input[type='text']:focus-visible {
+  outline: none;
+}
+
+.addCategory button {
+  background: transparent;
+  color: #ffffff;
+}
+
+.addCategory button:disabled {
+  color: #bfc6ce;
+  cursor: not-allowed;
+}

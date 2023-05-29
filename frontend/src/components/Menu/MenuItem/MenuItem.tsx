@@ -1,41 +1,27 @@
 import { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import './styles.css';
+import styles from './menuItem.module.css';
 
-const MenuItem = (props: {
-  id: string;
-  name: string;
-  onUpdateCategory: ({ name, id }: { name: string; id: string }) => void;
-  onRemoveCategory: (id: string) => void;
-}) => {
-  const { id, name, onUpdateCategory, onRemoveCategory } = props;
-  const [textValue, setTextValue] = useState(name);
-
-  const changeCategoryNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTextValue(e.target.value);
-  };
-
-  const updateCategoryNameHandler = () => {
-    onUpdateCategory({ id, name: textValue });
-  };
+const MenuItem = (props: { id: string; name: string; onRemoveCategory: (id: string) => void }) => {
+  const { id, name, onRemoveCategory } = props;
 
   return (
-    <>
+    <li className={styles.menuItem}>
       <NavLink
         to={`/categories/${id}`}
-        className={({ isActive }) => `category ${isActive ? 'selected' : ''}`}
+        className={({ isActive }) =>
+          `${styles['menuItem-value']} ${isActive ? styles['selected'] : ''}`
+        }
       >
-        <input
-          type="text"
-          value={textValue}
-          onChange={changeCategoryNameHandler}
-          onBlur={updateCategoryNameHandler}
-        />
+        {name}
       </NavLink>
-      <button className="btn-remove" onClick={onRemoveCategory.bind(null, id)}>
+      <button
+        className={`${styles['btn-remove']} btn-remove`}
+        onClick={onRemoveCategory.bind(null, id)}
+      >
         X
       </button>
-    </>
+    </li>
   );
 };
 
