@@ -8,12 +8,12 @@ app.options('*', cors())
 
 console.log('server is up! 2');
 
-import { router as todoListRoutes } from '../routers/todoCategories';
-import { router as todoItemsRoutes } from '../routers/todoItems';
+import { router as todoCategoryRoutes } from '../routers/todoCategories';
+import { router as todoListRoutes } from '../routers/todoList';
 
 app.use(bodyParser.json());
 
+app.use(todoCategoryRoutes);
 app.use(todoListRoutes);
-app.use(todoItemsRoutes);
 
 app.listen(8000);

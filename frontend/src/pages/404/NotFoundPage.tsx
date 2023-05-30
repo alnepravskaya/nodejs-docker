@@ -5,7 +5,7 @@ import { Category } from '../../types/common';
 import useCategoryMenu from '../../hooks/useCategoryMenu';
 import commonStyles from '../../commonStyles.module.css';
 
-const HomePage = () => {
+const NotFoundPage = () => {
   const { categories } = useLoaderData() as { categories: Category[] };
   const { allCategories, removeCategoryHandler, addNewCategoryHandler } =
     useCategoryMenu(categories);
@@ -19,10 +19,10 @@ const HomePage = () => {
         onAddNewCategory={addNewCategoryHandler}
       />
       <div className={commonStyles.container}>
-        <h1>Please add new category or choose from existing</h1>
+        <h1>This page is not found</h1>
       </div>
     </div>
   );
 };
 
-export default HomePage;
+export default NotFoundPage;

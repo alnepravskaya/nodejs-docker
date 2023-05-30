@@ -1,17 +1,13 @@
 export const classNameLevel = {
-  0: 'mg-0',
-  1: 'mg-24',
-  2: 'mg-48',
-  3: 'mg-62',
-  4: 'mg-86'
+  0: '',
+  1: 'level-1',
+  2: 'level-2',
+  3: 'level-3',
+  4: 'level-4'
 };
 
 export const MAX_LEVEL = 4;
 export const MIN_LEVEL = 0;
 
-export const ENTER = 'Enter';
-export const ARROW_DOWN = 'ArrowDown';
-export const ARROW_UP = 'ArrowUp';
-export const TAB = 'Tab';
-
 export const INPUT_NAME = 'input-';
+export const NEW_ITEM = 'new-item';

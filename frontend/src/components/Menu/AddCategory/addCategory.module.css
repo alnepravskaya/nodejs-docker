@@ -18,3 +18,10 @@
   color: #bfc6ce;
   cursor: not-allowed;
 }
+
+@media (max-width: 800px) {
+  .addCategory input {
+    width: 100%;
+    margin-left: 0;
+  }
+}

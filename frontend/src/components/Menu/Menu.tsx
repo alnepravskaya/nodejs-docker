@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MenuItem from './MenuItem/MenuItem';
 import AddCategory from './AddCategory/AddCategory';
 import { Category } from '../../types/common';
@@ -14,7 +14,7 @@ const Menu = (props: {
 
   return (
     <div className={styles.menu}>
-      <nav className={styles.categories}>
+      <nav>
         <ul>
           {allCategories?.map(({ name, id }) => (
             <MenuItem key={id} id={id} name={name} onRemoveCategory={onRemoveCategory} />

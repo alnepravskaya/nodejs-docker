@@ -9,7 +9,7 @@
   background: #175088;
 }
 
-.menuItem-value {
+.menuItemValue {
   box-sizing: border-box;
   width: calc(100% - 32px);
   height: 48px;
@@ -22,23 +22,23 @@
   text-overflow: ellipsis;
 }
 
-.menuItem button.btn-remove {
+.menuItem button.btnRemove {
   margin: 0;
   border-radius: 0;
 }
 
-button.btn-remove {
+button.btnRemove {
   position: absolute;
   top: 0;
   right: 0;
   height: 48px;
 }
 
-.menuItem-value.selected + button.btn-remove {
+.menuItemValue.selected + button.btnRemove {
   background: #175088;
 }
 
-.menuItem button.btn-remove:hover {
+.menuItem button.btnRemove:hover {
   color: #ff4545;
 }
 
@@ -46,15 +46,15 @@ button.btn-remove {
   outline: none;
 }
 
-.menuItem .btn-remove {
+.menuItem .btnRemove {
   opacity: 0;
 }
 
-.menuItem:hover .btn-remove {
+.menuItem:hover .btnRemove {
   opacity: 1;
 }
 
-.menuItem-value.selected + button.btn-remove {
+.menuItemValue.selected + button.btnRemove {
   background: #175088;
   opacity: 1;
 }

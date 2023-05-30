@@ -1,5 +1,5 @@
-import { Category, CategoryInfo } from '../../../types/common';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { CategoryInfo } from '../../../types/common';
 import styles from './todoHeader.module.css';
 
 const ToDoHeader = (props: {

@@ -1,0 +1,24 @@
+.info {
+  margin-left: auto;
+  padding: 16px;
+  background: #fafafa;
+}
+
+.keyEvent {
+  padding: 0 4px;
+  background: #fff;
+  border-width: 1px;
+  border-radius: 3px;
+  border-style: solid;
+  border-color: #d5d5d5;
+}
+
+.text {
+  padding: 0 8px;
+}
+
+@media (max-width: 1200px) {
+  .info {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
+import { ENTER } from '../../../contants/contants';
 import styles from './addCategory.module.css';
-import { ENTER } from '../../ToDoList/ToDoItem/constants';
 
 const AddCategory = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
   const [value, setValue] = useState('');

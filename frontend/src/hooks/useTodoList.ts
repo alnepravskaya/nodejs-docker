@@ -1,76 +1,94 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { CategoryInfo, ItemList, ItemListLevel } from '../types/common';
+import { toast } from 'react-toastify';
+import { CategoryInfo, ItemList, ItemListLevel, List } from '../types/common';
 import { todoService } from '../services/todoService';
+import { NEW_ITEM } from '../components/ToDoList/ToDoItem/constants';
+import { SERVER_ERROR } from '../contants/contants';
 
 const useTodoList = (categoryInfo: CategoryInfo | null) => {
   const [selectedCategoryInfo, setSelectedCategoryInfo] = useState<CategoryInfo | null>(
     categoryInfo
   );
+
   const [currentIndexFocus, setCurrentIndexFocus] = useState(
     selectedCategoryInfo?.list.length || 0
   );
+
   useEffect(() => {
     setSelectedCategoryInfo(categoryInfo);
   }, [categoryInfo]);
 
-  const addNewItemHandler = async ({
-    value,
-    index,
-    level,
-    id
-  }: {
-    value: string;
-    index?: number;
-    level?: ItemListLevel;
-    id?: string;
-  }) => {
-    if (selectedCategoryInfo?.list) {
-      const updatedList = [...selectedCategoryInfo?.list];
-      const newItemSiblingIndex = updatedList.findIndex((item) => item.id === id);
+  const updateTodoList = useCallback(
+    async (updatedList: List) => {
+      if (selectedCategoryInfo) {
+        setSelectedCategoryInfo((prev) => ({ ...prev, list: updatedList } as CategoryInfo));
+        const response = await todoService.updateList(selectedCategoryInfo.id, updatedList);
 
-      setCurrentIndexFocus(
-        newItemSiblingIndex !== undefined ? newItemSiblingIndex + 1 : updatedList.length + 1
-      );
-
-      updatedList.splice(
-        newItemSiblingIndex !== -1 ? newItemSiblingIndex + 1 : updatedList.length,
-        0,
-        {
-          text: value,
-          isDone: false,
-          level: level || ItemListLevel['level-0'],
-          id: uuidv4()
+        if (response?.status !== 200) {
+          toast.error(SERVER_ERROR, {
+            position: 'top-center',
+            hideProgressBar: false
+          });
         }
-      );
+      }
+    },
+    [selectedCategoryInfo]
+  );
 
-      setSelectedCategoryInfo((prev) => ({ ...prev, list: updatedList } as CategoryInfo));
+  const addNewItemHandler = useCallback(
+    async ({ value, level, id }: { value: string; level?: ItemListLevel; id?: string }) => {
+      if (selectedCategoryInfo?.list) {
+        const updatedList = [...selectedCategoryInfo?.list];
+        const newItemSiblingIndex = updatedList.findIndex((item) => item.id === id);
 
-      await todoService.addNewItem(selectedCategoryInfo.id, updatedList);
-    }
-  };
+        setCurrentIndexFocus(
+          newItemSiblingIndex !== undefined ? newItemSiblingIndex + 1 : updatedList.length + 1
+        );
 
-  const updateItemHandler = async (item: ItemList, id: string) => {
-    if (selectedCategoryInfo?.id) {
-      const updatedList = [...selectedCategoryInfo.list];
+        updatedList.splice(
+          newItemSiblingIndex !== -1 ? newItemSiblingIndex + 1 : updatedList.length,
+          0,
+          {
+            text: value,
+            isDone: false,
+            level: level || ItemListLevel['level-0'],
+            id: uuidv4()
+          }
+        );
 
-      const updatedItemIndex = updatedList.findIndex((item) => item.id === id);
-      updatedList[updatedItemIndex] = item;
+        await updateTodoList(updatedList);
+      }
+    },
+    [selectedCategoryInfo, updateTodoList]
+  );
 
-      setSelectedCategoryInfo((prev) => ({ ...prev, list: updatedList } as CategoryInfo));
+  const updateItemHandler = useCallback(
+    async (item: ItemList) => {
+      if (selectedCategoryInfo?.id) {
+        const updatedList =
+          item.id === NEW_ITEM
+            ? [...selectedCategoryInfo.list, { ...item, id: uuidv4() }]
+            : selectedCategoryInfo.list.map((listItem) =>
+                item.id === listItem.id ? item : listItem
+              );
 
-      await todoService.updateItem(selectedCategoryInfo.id, updatedList);
-    }
-  };
+        await updateTodoList(updatedList);
+      }
+    },
+    [selectedCategoryInfo, updateTodoList]
+  );
 
-  const removeItemHandler = async (id: string) => {
-    if (selectedCategoryInfo) {
-      const updatedList = selectedCategoryInfo?.list.filter((item) => id !== item.id);
-      setSelectedCategoryInfo((prev) => ({ ...prev, list: updatedList } as CategoryInfo));
+  const removeItemHandler = useCallback(
+    async (id: string) => {
+      if (selectedCategoryInfo) {
+        const updatedList = selectedCategoryInfo?.list.filter((item) => id !== item.id);
 
-      await todoService.removeItem(selectedCategoryInfo.id, updatedList);
-    }
-  };
+        await updateTodoList(updatedList);
+      }
+    },
+    [selectedCategoryInfo, updateTodoList]
+  );
 
   return {
     selectedCategoryInfo,

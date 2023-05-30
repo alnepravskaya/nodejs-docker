@@ -2,62 +2,62 @@
   --margin: 24px;
 }
 
-.item-line {
+.itemLine {
   display: flex;
   align-items: center;
 }
 
-.list-item .crossed {
+.listItem .crossed {
   text-decoration: line-through;
 }
 
-.list-item button {
+.listItem button {
   margin: 0 4px;
 }
 
-.list-item label {
+.listItem label {
   display: flex;
   align-items: center;
 }
 
-.list-item input[type='checkbox'] {
-  height: 24px;
-  width: 24px;
+.listItem input[type='checkbox'] {
+  height: 20px;
+  width: 20px;
 }
 
-.list-item.mg-24 {
+.listItem.level-1 {
   margin-left: var(--margin);
 }
 
-.list-item.mg-48 {
+.listItem.level-2 {
   margin-left: calc(2 * var(--margin));
 }
 
-.list-item.mg-62 {
+.listItem.level-3 {
   margin-left: calc(3 * var(--margin));
 }
 
-.list-item.mg-86 {
+.listItem.level-4 {
   margin-left: calc(4 * var(--margin));
 }
 
-.list-item input[type='text']:focus-visible {
+.listItem input[type='text']:focus-visible {
   outline: none;
 }
 
-.btn-add {
-  font-size: 20px;
-}
-
-button.btn-remove:hover {
+button.btnRemove:hover {
   background: #f5e0e0;
 }
 
-.list-item .btn-remove {
+.listItem .btnRemove {
   opacity: 0;
   margin-left: auto;
 }
 
-.list-item:hover .btn-remove {
+.listItem:hover .btnRemove {
   opacity: 1;
+}
+
+.listItem input[type='text'] {
+  width: 250px;
 }

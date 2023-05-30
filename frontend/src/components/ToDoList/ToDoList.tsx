@@ -1,12 +1,11 @@
-import { ItemList, ItemListLevel, List } from '../../types/common';
-import ToDoItem from './ToDoItem/ToDoItem';
-import styles from './todolist.module.css';
-import useTodoList from '../../hooks/useTodoList';
-import { useLoaderData } from 'react-router-dom';
-import { LoaderCategoryPage } from '../../pages/category/types';
-import ToDoHeader from './ToDoHeader/ToDoHeader';
 import React from 'react';
-import useCategoryMenu from '../../hooks/useCategoryMenu';
+import { useLoaderData } from 'react-router-dom';
+import ToDoItem from './ToDoItem/ToDoItem';
+import useTodoList from '../../hooks/useTodoList';
+import { LoaderCategoryPage } from '../../pages/category/types';
+import { ItemListLevel } from '../../types/common';
+import { NEW_ITEM } from './ToDoItem/constants';
+import styles from './todolist.module.css';
 
 const ToDoList = () => {
   const { categoryInfo } = useLoaderData() as LoaderCategoryPage;
@@ -23,8 +22,8 @@ const ToDoList = () => {
 
   return (
     <>
-      <ul className={styles['todo-list']}>
-        {selectedCategoryInfo?.list?.map((item, index) => (
+      <ul className={styles.todoList}>
+        {selectedCategoryInfo?.list.map((item, index) => (
           <ToDoItem
             currentIndexFocus={currentIndexFocus}
             index={index}
@@ -44,7 +43,7 @@ const ToDoList = () => {
             text: '',
             isDone: false,
             level: ItemListLevel['level-0'],
-            id: ''
+            id: NEW_ITEM
           }}
           isLastItem={true}
           onUpdateItem={updateItemHandler}
