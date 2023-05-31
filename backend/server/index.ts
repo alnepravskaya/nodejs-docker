@@ -3,8 +3,8 @@ import * as bodyParser from 'body-parser';
 import cors from 'cors';
 
 const app = express();
-app.use(cors())
-app.options('*', cors())
+app.use(cors());
+app.options('*', cors());
 
 console.log('server is up! 2');
 

@@ -14,7 +14,7 @@ router.post('/todoCategories', async (req: express.Request, res: express.Respons
     list: []
   });
   const response = await getAllTodoCategories();
-  res.json({status:200, body: response});
+  res.json({ status: 200, body: response });
 });
 
 router.post('/todoCategories/update', async (req: express.Request, res: express.Response) => {
@@ -22,7 +22,7 @@ router.post('/todoCategories/update', async (req: express.Request, res: express.
     { $set: { name: req.body.name } }
   ]);
   const response = await getAllTodoCategories();
-  res.json({status:200, body: response});
+  res.json({ status: 200, body: response });
 });
 
 router.delete(
@@ -30,7 +30,7 @@ router.delete(
   async (req: express.Request, res: express.Response) => {
     await dbCollection(TODO_CATEGORIES).deleteOne({ id: req.params.categoryId });
     const response = await getAllTodoCategories();
-    res.json({status:200, body: response});
+    res.json({ status: 200, body: response });
   }
 );
 
