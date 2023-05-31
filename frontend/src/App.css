@@ -1,0 +1,39 @@
+body {
+  padding: 0;
+}
+
+button,
+input {
+  box-sizing: border-box;
+  height: 32px;
+  margin: 0 4px;
+  padding: 4px;
+}
+
+input {
+  border: none;
+}
+
+input[type='text']:focus-visible {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  display: inline-block;
+  border: none;
+  vertical-align: baseline;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #1876d2;
+}
+
+button:hover {
+  background-color: rgba(25, 118, 210, 0.04);
+}
+
+button:disabled {
+  border-color: #406f9a;
+  color: #406f9a;
+  cursor: not-allowed;
+}

@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  node:
+    image: node:20-alpine
+    restart: always
+    working_dir: /
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/server
+
+    command: [sh, -c, "cd server && npm run start:docker"]
+    links:
+      - mongo
+
+  mongo:
+    image: mongo
+    logging:
+      driver: none
+    volumes:
+      - ./mongodb:/data/db
+
+  frontend:
+    image: node:20-alpine
+    restart: always
+    working_dir: /
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+
+    command: [ sh, -c, "cd frontend && npm run start" ]

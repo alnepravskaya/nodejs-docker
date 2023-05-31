@@ -1,0 +1,63 @@
+:root {
+  --margin: 24px;
+}
+
+.itemLine {
+  display: flex;
+  align-items: center;
+}
+
+.listItem .crossed {
+  text-decoration: line-through;
+}
+
+.listItem button {
+  margin: 0 4px;
+}
+
+.listItem label {
+  display: flex;
+  align-items: center;
+}
+
+.listItem input[type='checkbox'] {
+  height: 20px;
+  width: 20px;
+}
+
+.listItem.level-1 {
+  margin-left: var(--margin);
+}
+
+.listItem.level-2 {
+  margin-left: calc(2 * var(--margin));
+}
+
+.listItem.level-3 {
+  margin-left: calc(3 * var(--margin));
+}
+
+.listItem.level-4 {
+  margin-left: calc(4 * var(--margin));
+}
+
+.listItem input[type='text']:focus-visible {
+  outline: none;
+}
+
+button.btnRemove:hover {
+  background: #f5e0e0;
+}
+
+.listItem .btnRemove {
+  opacity: 0;
+  margin-left: auto;
+}
+
+.listItem:hover .btnRemove {
+  opacity: 1;
+}
+
+.listItem input[type='text'] {
+  width: 250px;
+}

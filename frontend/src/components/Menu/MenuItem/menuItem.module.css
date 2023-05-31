@@ -1,0 +1,60 @@
+.menuItem {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.menuItem .selected {
+  background: #175088;
+}
+
+.menuItemValue {
+  box-sizing: border-box;
+  width: calc(100% - 32px);
+  height: 48px;
+  line-height: 48px;
+  padding-left: 16px;
+  text-decoration: none;
+  color: #ffffff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.menuItem button.btnRemove {
+  margin: 0;
+  border-radius: 0;
+}
+
+button.btnRemove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 48px;
+}
+
+.menuItemValue.selected + button.btnRemove {
+  background: #175088;
+}
+
+.menuItem button.btnRemove:hover {
+  color: #ff4545;
+}
+
+.menuItem input:focus-visible {
+  outline: none;
+}
+
+.menuItem .btnRemove {
+  opacity: 0;
+}
+
+.menuItem:hover .btnRemove {
+  opacity: 1;
+}
+
+.menuItemValue.selected + button.btnRemove {
+  background: #175088;
+  opacity: 1;
+}

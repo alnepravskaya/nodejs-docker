@@ -3,3 +3,4 @@ frontend/.idea
 backend/node_modules
 .idea
 mongodb
+node_modules

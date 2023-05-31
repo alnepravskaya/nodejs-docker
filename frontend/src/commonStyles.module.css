@@ -1,0 +1,19 @@
+.page-container {
+  display: flex;
+}
+
+.container {
+  padding: 16px;
+}
+
+button.btnRemove {
+  width: 32px;
+  border: none;
+  color: #ff0101;
+  background: transparent;
+}
+
+button.btnSquare {
+  width: 32px;
+  height: 32px;
+}
