@@ -27,6 +27,6 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/frontend
+      - ./frontend/react:/frontend/react
 
-    command: [ sh, -c, "cd frontend && npm run start" ]
+    command: [ sh, -c, "cd frontend/react && npm run start" ]
