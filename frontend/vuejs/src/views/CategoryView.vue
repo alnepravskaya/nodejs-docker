@@ -68,5 +68,6 @@ export default {
   height: 100vh;
   overflow: scroll;
   padding: 16px;
+  box-sizing: border-box;
 }
 </style>

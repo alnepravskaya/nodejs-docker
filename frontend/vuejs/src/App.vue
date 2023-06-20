@@ -64,7 +64,7 @@ export default {
 </script>
 
 <template>
-  <div class="page-container">
+  <div class="pageContainer">
     <MainMenu
       :allCategories="allCategories.categories"
       :selectedCategoryIndex="selectedCategoryIndex.value"
@@ -122,7 +122,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.page-container {
+.pageContainer {
   display: flex;
 }
 

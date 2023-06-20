@@ -11,7 +11,7 @@ const NotFoundPage = () => {
     useCategoryMenu(categories);
 
   return (
-    <div className={commonStyles['page-container']}>
+    <div className={commonStyles.pageContainer}>
       <Menu
         categoriesList={categories}
         allCategories={allCategories}

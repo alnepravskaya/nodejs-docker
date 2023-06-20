@@ -38,7 +38,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.page-container {
+.pageContainer {
   display: flex;
 }
 
