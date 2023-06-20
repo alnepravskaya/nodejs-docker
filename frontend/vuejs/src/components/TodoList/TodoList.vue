@@ -78,8 +78,9 @@ export default {
 
     watch(
       () => todoList.list,
-      () => {
+      async () => {
         emit('updateTodoList', todoList.list)
+        await updateTodoList(todoList.list);
       },
       { deep: true }
     )
@@ -120,6 +121,8 @@ export default {
     >
       <TodoItem
         :item="item"
+        v-model:text="item.text"
+        v-model:isDone="item.isDone"
         :index="index"
         :ref="(el) => setBaseComponentsRef(el, index)"
         @setFocusToElement="setFocusToElement"

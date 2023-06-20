@@ -7,10 +7,12 @@ import { ARROW_DOWN, ARROW_UP, BACKSPACE, ENTER, TAB } from '@/contants/contants
 export default {
   props: {
     item: { type: Object as PropType<ItemList>, required: true },
-    index: Number
+    index: Number,
+    text: String,
+    isDone: Boolean
   },
   expose: ['setFocus'],
-  emits: ['updateItem', 'addNewItem', 'setFocusToElement', 'removeItem'],
+  emits: ['updateItem', 'addNewItem', 'setFocusToElement', 'removeItem', 'update:text', 'update:isDone'],
   setup(props, { emit }) {
     const input = ref(null)
 
@@ -63,6 +65,7 @@ export default {
     }
 
     const removeItemHandler = () => {
+      debugger;
       emit('removeItem', props.item.id)
     }
 
@@ -80,10 +83,11 @@ export default {
 
 <template>
   <div class="itemLine">
-    <input type="checkbox" v-model="item.isDone" name="id" />
+    <input type="checkbox" :checked="isDone"  @change="$emit('update:isDone', !isDone)"/>
     <input
       type="text"
-      v-model="item.text"
+      :value="text"
+      @input="$emit('update:text', $event.target.value)"
       @keydown="keyDownHandler"
       @blur="onBlurItemHandler"
       placeholder="To-do"
