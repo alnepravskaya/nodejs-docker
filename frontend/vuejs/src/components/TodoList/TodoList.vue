@@ -80,7 +80,7 @@ export default {
       () => todoList.list,
       async () => {
         emit('updateTodoList', todoList.list)
-        await updateTodoList(todoList.list);
+        await updateTodoList(todoList.list)
       },
       { deep: true }
     )

@@ -12,7 +12,14 @@ export default {
     isDone: Boolean
   },
   expose: ['setFocus'],
-  emits: ['updateItem', 'addNewItem', 'setFocusToElement', 'removeItem', 'update:text', 'update:isDone'],
+  emits: [
+    'updateItem',
+    'addNewItem',
+    'setFocusToElement',
+    'removeItem',
+    'update:text',
+    'update:isDone'
+  ],
   setup(props, { emit }) {
     const input = ref(null)
 
@@ -65,7 +72,6 @@ export default {
     }
 
     const removeItemHandler = () => {
-      debugger;
       emit('removeItem', props.item.id)
     }
 
@@ -83,7 +89,7 @@ export default {
 
 <template>
   <div class="itemLine">
-    <input type="checkbox" :checked="isDone"  @change="$emit('update:isDone', !isDone)"/>
+    <input type="checkbox" :checked="isDone" @change="$emit('update:isDone', !isDone)" />
     <input
       type="text"
       :value="text"
