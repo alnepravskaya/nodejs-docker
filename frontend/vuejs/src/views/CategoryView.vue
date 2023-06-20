@@ -1,6 +1,7 @@
 <script lang="ts">
 import TodoList from '@/components/TodoList/TodoList.vue'
 import TodoHeader from '@/components/TodoList/TodoHeader.vue'
+import InfoTable from '@/components/Info/InfoTable.vue'
 import { useRoute } from 'vue-router'
 import { onMounted, reactive, watch } from 'vue'
 import { todoService } from '../../services/todoService'
@@ -10,7 +11,8 @@ export default {
   emits: ['updateCategory'],
   components: {
     TodoList,
-    TodoHeader
+    TodoHeader,
+    InfoTable
   },
   setup() {
     const router = useRoute()
@@ -18,12 +20,17 @@ export default {
 
     const updateCategoryInfo = async () => {
       const { list, name, id } = await todoService.getCategoryInfo(router.params.id as string)
-      categoryInfo.list = list.concat({
-        id: uuidv4(),
-        text: '',
-        isDone: false,
-        level: 0
-      })
+
+      if (list[list.length - 1].text === '') {
+        categoryInfo.list = list
+      } else {
+        categoryInfo.list = list.concat({
+          id: uuidv4(),
+          text: '',
+          isDone: false,
+          level: 0
+        })
+      }
       categoryInfo.name = name
       categoryInfo.id = id
     }
@@ -44,7 +51,7 @@ export default {
 }
 </script>
 <template>
-  <div>
+  <div class="categoryContainer">
     <TodoHeader
       @updateCategory="$emit('updateCategory', $event)"
       :name="categoryInfo.name"
@@ -52,6 +59,14 @@ export default {
     />
     <TodoList :todoListInitial="categoryInfo.list" />
   </div>
+  <InfoTable />
 </template>
 
-<style></style>
+<style scoped>
+.categoryContainer {
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+  padding: 16px;
+}
+</style>

@@ -137,6 +137,6 @@ button.btnRemove:hover {
 }
 
 .listItem input[type='text'] {
-  width: 250px;
+  width: 100%;
 }
 </style>

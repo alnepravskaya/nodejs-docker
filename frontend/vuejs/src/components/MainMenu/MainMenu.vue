@@ -40,6 +40,7 @@ export default {
   height: 100vh;
   overflow: scroll;
   background: #1876d2;
+  flex: none;
 }
 
 .menu ul {

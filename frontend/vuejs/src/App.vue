@@ -17,9 +17,8 @@ export default {
 
     onMounted(async () => {
       allCategories.categories = await todoService.getAllCategories()
-      selectedCategoryIndex.value = allCategories.categories?.findIndex(
-        ({ id }) => id === route.params.id
-      ) || 0
+      selectedCategoryIndex.value =
+        allCategories.categories?.findIndex(({ id }) => id === route.params.id) || 0
     })
 
     watch(route, () => {
@@ -128,9 +127,9 @@ button:disabled {
 }
 
 .container {
+  width: 100%;
   height: 100vh;
-  overflow: scroll;
-  padding: 16px;
+  display: flex;
 }
 
 button.btnRemove {
