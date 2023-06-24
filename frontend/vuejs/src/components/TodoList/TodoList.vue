@@ -94,6 +94,7 @@ export default {
 
     const setFocusToElement = async (index: number) => {
       await nextTick()
+
       baseComponents.value?.[index]?.setFocus?.()
     }
 
@@ -115,8 +116,7 @@ export default {
   <ul class="todoList">
     <li
       v-for="(item, index) in todoList.list"
-      :class="{ [CLASS_NAME_LEVEL[item.level]]: true }"
-      class="listItem"
+      :class="{ [CLASS_NAME_LEVEL[item.level]]: true, listItem: true }"
       :key="item.id"
     >
       <TodoItem

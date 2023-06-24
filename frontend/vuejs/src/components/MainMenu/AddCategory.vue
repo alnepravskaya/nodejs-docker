@@ -1,10 +1,10 @@
 <script lang="ts">
-import { reactive } from 'vue'
+import { ref } from 'vue'
 
 export default {
   emit: ['addNewCategory'],
   setup(props, { emit }) {
-    const newCategory = reactive({ value: '' })
+    const newCategory = ref('')
 
     const addCategoryHandler = () => {
       if (newCategory.value) {

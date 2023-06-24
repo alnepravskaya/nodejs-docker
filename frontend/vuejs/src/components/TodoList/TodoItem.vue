@@ -23,7 +23,7 @@ export default {
   setup(props, { emit }) {
     const input = ref(null)
 
-    const setFocus = () => {
+    const setFocus = async () => {
       input.value.focus()
     }
 
