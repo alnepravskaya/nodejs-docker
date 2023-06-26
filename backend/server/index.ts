@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.options('*', cors());
 
-console.log('server is up! 2');
+console.log('server is up!');
 
 import { router as todoCategoryRoutes } from '../routers/todoCategories';
 import { router as todoListRoutes } from '../routers/todoList';
