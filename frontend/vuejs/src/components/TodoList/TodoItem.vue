@@ -15,7 +15,8 @@ export default {
   emits: [
     'updateItem',
     'addNewItem',
-    'setFocusToElement',
+    'setFocusToNextElement',
+    'setFocusToPrevElement',
     'removeItem',
     'update:text',
     'update:isDone'
@@ -23,12 +24,12 @@ export default {
   setup(props, { emit }) {
     const input = ref(null)
 
-    const setFocus = async () => {
+    const setFocus = () => {
       input.value.focus()
     }
 
     const onBlurItemHandler = () => {
-      emit('updateItem', props.item, props.index)
+      emit('updateItem', props.item)
     }
 
     const editItemStatusHandler = () => {
@@ -42,20 +43,19 @@ export default {
         } else if (e.currentTarget?.value !== '') {
           emit('addNewItem', {
             value: '',
-            index: props.index,
             level: props.item.level,
             id: props.item.id
           })
-          emit('setFocusToElement', props.index + 1)
+          emit('setFocusToNextElement')
         }
       } else if (e.code === BACKSPACE && props.item.text === '') {
         e.preventDefault()
-        emit('setFocusToElement', props.index - 1)
+        emit('setFocusToPrevElement')
         emit('removeItem', props.item.id)
       } else if (e.code === ARROW_DOWN) {
-        emit('setFocusToElement', props.index + 1)
+        emit('setFocusToNextElement')
       } else if (e.code === ARROW_UP) {
-        emit('setFocusToElement', props.index - 1)
+        emit('setFocusToPrevElement')
         e.preventDefault()
       } else if (e.code === TAB) {
         e.preventDefault()

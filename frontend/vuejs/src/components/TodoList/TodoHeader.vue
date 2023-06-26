@@ -1,21 +1,21 @@
 <script lang="ts">
 import { ref, watch } from 'vue'
+import { todoService } from '../../../services/todoService'
 
 export default {
   props: {
     name: String,
     id: String
   },
-  emits: ['updateCategory'],
-  setup(props, { emit }) {
+  setup(props) {
     const todoListHeader = ref(props.name)
 
     watch(props, () => {
       todoListHeader.value = props.name
     })
 
-    const updateCategoryNameHandler = () => {
-      emit('updateCategory', { id: props.id, name: todoListHeader.value })
+    const updateCategoryNameHandler = async () => {
+      await todoService.updateCategory({ id: props.id || '', name: todoListHeader.value || '' })
     }
 
     return {

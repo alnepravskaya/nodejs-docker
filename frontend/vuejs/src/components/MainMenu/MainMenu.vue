@@ -1,17 +1,20 @@
 <script lang="ts">
 import MenuItem from './MenuItem.vue'
 import AddCategory from './AddCategory.vue'
-import { Category } from '@/types/common'
+import { todoService } from '../../../services/todoService'
 
 export default {
   components: {
     MenuItem,
     AddCategory
   },
-  emits: ['removeCategory', 'addNewCategory'],
-  props: {
-    allCategories: { type: Array as Category[] },
-    selectedCategoryIndex: Number
+  async setup() {
+    await todoService.getAllCategories()
+
+    return {
+      allCategories: todoService.allCategories,
+      todoService
+    }
   }
 }
 </script>
@@ -19,16 +22,11 @@ export default {
 <template>
   <nav class="menu">
     <ul>
-      <li
-        v-for="(category, index) in allCategories"
-        class="menuItem"
-        :key="category.id"
-        :class="{ active: selectedCategoryIndex === index }"
-      >
-        <MenuItem :category="category" @removeCategory="$emit('removeCategory', $event)" />
+      <li v-for="category in allCategories" class="menuItem" :key="category.id">
+        <MenuItem :category="category" />
       </li>
       <li>
-        <AddCategory @addNewCategory="$emit('addNewCategory', $event)" />
+        <AddCategory />
       </li>
     </ul>
   </nav>

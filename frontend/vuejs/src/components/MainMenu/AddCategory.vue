@@ -1,15 +1,23 @@
 <script lang="ts">
 import { ref } from 'vue'
+import { todoService } from '../../../services/todoService'
+import { useRouter } from 'vue-router'
 
 export default {
-  emit: ['addNewCategory'],
-  setup(props, { emit }) {
+  setup() {
+    const router = useRouter()
+
     const newCategory = ref('')
 
-    const addCategoryHandler = () => {
+    const addCategoryHandler = async () => {
       if (newCategory.value) {
-        emit('addNewCategory', newCategory.value)
+        await todoService.addNewCategory(newCategory.value)
         newCategory.value = ''
+        router.push(
+          `/categories/${
+            todoService.allCategories.value[todoService.allCategories.value.length - 1].id
+          }`
+        )
       }
     }
 
@@ -23,8 +31,8 @@ export default {
 
 <template>
   <div class="addCategory">
-    <input type="text" v-model.trim="newCategory.value" @keydown.enter="addCategoryHandler" />
-    <button type="submit" @click="addCategoryHandler" :disabled="!newCategory.value">Add</button>
+    <input type="text" v-model.trim="newCategory" @keydown.enter="addCategoryHandler" />
+    <button type="submit" @click="addCategoryHandler" :disabled="!newCategory">Add</button>
   </div>
 </template>
 

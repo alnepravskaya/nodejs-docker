@@ -1,18 +1,25 @@
 <script lang="ts">
 import { Category } from '@/types/common'
+import { todoService } from '../../../services/todoService'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
   props: {
     category: { type: Object as Category }
   },
-  emits: ['removeCategory'],
 
-  setup(props, { emit }) {
-    const removeCategoryHandler = (e) => {
+  setup(props) {
+    const route = useRoute()
+    const router = useRouter()
+
+    const removeCategoryHandler = async (e: Event) => {
       e.preventDefault()
-      emit('removeCategory', props.category.id)
-    }
+      await todoService.removeCategory(props.category.id)
 
+      if (route.params.id === props.category.id) {
+        router.push(`/`)
+      }
+    }
     return {
       removeCategoryHandler
     }

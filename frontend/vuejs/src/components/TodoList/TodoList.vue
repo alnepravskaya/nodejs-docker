@@ -1,7 +1,6 @@
 <script lang="ts">
 import TodoItem from '@/components/TodoList/TodoItem.vue'
-import { CLASS_NAME_LEVEL } from './constants'
-import { ItemList, ItemListLevel, List } from '@/types/common'
+import { ItemList, List } from '@/types/common'
 import { nextTick, PropType, reactive, ref, watch } from 'vue'
 import { debounce } from '@/utils/debounce'
 import { todoService } from '../../../services/todoService'
@@ -15,7 +14,7 @@ export default {
   props: {
     todoListInitial: { type: Array as PropType<ItemList[]> }
   },
-  setup(props, { emit }) {
+  setup(props) {
     const router = useRoute()
     const todoList = reactive({ list: props.todoListInitial })
     const baseComponents = ref([])
@@ -66,7 +65,7 @@ export default {
           {
             text: value,
             isDone: false,
-            level: level || ItemListLevel['level-0'],
+            level: level || 0,
             id: uuidv4()
           }
         )
@@ -79,7 +78,6 @@ export default {
     watch(
       () => todoList.list,
       async () => {
-        emit('updateTodoList', todoList.list)
         await updateTodoList(todoList.list)
       },
       { deep: true }
@@ -92,17 +90,21 @@ export default {
       }
     )
 
-    const setFocusToElement = async (index: number) => {
+    const setFocusToPrevElement = async (index: number) => {
       await nextTick()
+      baseComponents.value?.[index - 1].setFocus()
+    }
 
-      baseComponents.value?.[index]?.setFocus?.()
+    const setFocusToNextElement = async (index: number) => {
+      await nextTick()
+      baseComponents.value?.[index + 1].setFocus()
     }
 
     return {
-      CLASS_NAME_LEVEL,
       setBaseComponentsRef,
       baseComponents,
-      setFocusToElement,
+      setFocusToNextElement,
+      setFocusToPrevElement,
       addNewItemHandler,
       removeItemHandler,
       updateItemHandler,
@@ -116,7 +118,7 @@ export default {
   <ul class="todoList">
     <li
       v-for="(item, index) in todoList.list"
-      :class="{ [CLASS_NAME_LEVEL[item.level]]: true, listItem: true }"
+      :class="{ [`level-${item.level}`]: true, listItem: true }"
       :key="item.id"
     >
       <TodoItem
@@ -125,10 +127,11 @@ export default {
         v-model:isDone="item.isDone"
         :index="index"
         :ref="(el) => setBaseComponentsRef(el, index)"
-        @setFocusToElement="setFocusToElement"
-        @addNewItem="addNewItemHandler"
+        @setFocusToPrevElement="setFocusToPrevElement(index)"
+        @setFocusToNextElement="setFocusToNextElement(index)"
+        @addNewItem="addNewItemHandler($event, index)"
         @removeItem="removeItemHandler"
-        @updateItem="updateItemHandler"
+        @updateItem="updateItemHandler($event, index)"
       />
     </li>
   </ul>
@@ -153,7 +156,7 @@ export default {
   margin-left: calc(3 * var(--margin));
 }
 
-.listItem.level-4 {
+.listItem.leve-4 {
   margin-left: calc(4 * var(--margin));
 }
 </style>
