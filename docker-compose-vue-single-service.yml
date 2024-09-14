@@ -9,11 +9,20 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/server
-      - ./frontend/react:/frontend/react
+      - ./frontend/vuejs:/frontend/vuejs
 
-    command: [sh, -c, "cd server && npm run start:docker & cd ../frontend/react && npm run start"]
+    command: [sh, -c, "cd server && npm run start:docker & cd ../frontend/vuejs && npm i && npm run dev"]
     links:
       - mongo
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.125'
+          memory: 128M
+
 
   mongo:
     image: mongo
